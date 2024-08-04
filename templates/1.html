@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+    <title>Flight Price Predictor</title>
+  </head>
+  <body>
+    <h1>Flight Price Predictor</h1>
+    <form method="post" action="/predict_price">
+      <div class="Flight-container">
+        <div class="Airline-container">
+          <label for="Airline">Airline</label>
+          <select name="Airline" id="Airline">
+            <option value="" selected disabled>Select the Airline</option>
+            <option value="Vistara">Vistara</option>
+            <option value="Indigo">Indigo</option>
+            <option value="GO FIRST">GO FIRST</option>
+            <option value="Spicejet">Spicejet</option>
+            <option value="Air India">Air India</option>
+          </select>
+        </div>
+
+        <div class="Source-Dest-container">
+          <label for="Source">Source</label>
+          <select name="Source" id="Source" onchange="populatedest()">
+            <option value="" selected disabled>Select Source</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="Mumbai">Mumbai</option>
+          </select>
+          <label for="Destination">Destination</label>
+          <select name="Destination" id="Destination">
+            <option value="" selected disabled>Select Destination</option>
+          </select>
+        </div>
+
+        <div class="Duration-container">
+          <label for="">Duration</label>
+          <input type="number" min="1.5" max="8" step="0.5" name="Duration" />
+        </div>
+
+        <div class="Class-container">
+          <label>Class:</label>
+          <input type="radio" id="economy" name="class" value="0" checked />
+          <label for="economy">Economy</label>
+          <input type="radio" id="business" name="class" value="1" />
+          <label for="business">Business</label>
+        </div>
+
+        <div class="Stops-container">
+          <label for="">No. of Stops</label>
+          <select name="Stops" id="Stops">
+            <!-- <option value="" selected disabled>Select No. of Stops</option> -->
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+
+        <div class="Date-container">
+          <label for="datePicker">Select a Date:</label>
+          <input
+            type="date"
+            id="datePicker"
+            name="datePicker"
+            onchange="calculateDays()"
+          />
+        </div>
+
+        <input type="hidden" id="daysDifference" name="daysDifference" />
+
+        <div class="Arrival-Dept-container">
+          <label for="">Departure Time</label>
+          <select name="Departure" id="Departure" onchange="populatetime()">
+            <option value="Early Morning">Early Morning</option>
+            <option value="Morning">Morning</option>
+            <option value="Evening">Evening</option>
+            <option value="Night">Night</option>
+            <option value="Late Night">Late Night</option>
+          </select>
+          <label for="">Arrival Time</label>
+          <select name="Arrival" id="Arrival">
+            <option value="" selected disabled>Select Arrival time</option>
+          </select>
+        </div>
+
+        <!-- Predicted Price Display -->
+        <div class="Price-container">
+          {% if price is not none %}
+          <p>Predicted Price: ₹{{ price }}</p>
+          {% endif %}
+        </div>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <script src="../static/js/app.js"></script>
+  </body>
+</html>
