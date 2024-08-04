@@ -56,10 +56,12 @@ def price_predict(airline, source, destination, duration, seat, stops, days_left
 
 @app.route('/')
 def home():
+    load_model()
     return render_template('1.html')
 
 @app.route('/predict_price', methods=['POST'])
 def predict_price():
+    
     # Extract data from the form
     airline = request.form.get('Airline')
     source = request.form.get('Source')
